@@ -8,11 +8,10 @@ const order = ( state = [], action ) => {
 const items = ( state = {}, action ) => {
    switch ( action.type ) {
    case constants.PUBLISH_PAGE:
-      return state.map( page => {
-         return page.id === action.id
-            ? { ...page, is_published : true }
-            : page;
-      });
+      return {
+         ...state,
+         [ action.id ] : { ...state[ action.id ], is_published : true }
+      };
    default:
       return state;
    }

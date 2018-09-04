@@ -29,10 +29,10 @@ export const getPagesByFolderId = ( state, folder_id ) => {
    return page_items;
 };
 
-export const getHomepageId = ( state ) => {
+export const getHomePageId = ( state ) => {
    return state.page_home_id;
 };
 
-export const get404pageId = ( state ) => {
+export const get404PageId = ( state ) => {
    return state.page_404_id;
 };

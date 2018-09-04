@@ -10,7 +10,7 @@ import preloaded_data from './store/data';
 
 import './styles.css';
 
-const store = window.store = createStore(
+const store = createStore(
    root_reducer,
    preloaded_data,
    applyMiddleware( thunk, createLogger() )
