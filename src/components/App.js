@@ -5,7 +5,7 @@ import FoldersList from '../containers/FoldersList';
 const App = () => (
    <div>
       <SearchBox id="sk-mp-searchbox" placeholder="Search..."/>
-      <FoldersList id="sk-mp-folderslist"/>
+      <FoldersList/>
    </div>
 );
 

@@ -1,15 +1,23 @@
 import { combineReducers } from 'redux';
 
-const ids = ( state = [], action ) => {
+const order = ( state = [ 0 ], action ) => {
    return state;
 }
 
-const items = ( state = {}, action ) => {
+const default_items_state = {
+   0 : {
+      id       : 0,
+      name     : '',
+      url      : '',
+   }
+};
+
+const items = ( state = default_items_state, action ) => {
    return state;
 }
 
 const folders = combineReducers({
-   ids,
+   order,
    items
 });
 
