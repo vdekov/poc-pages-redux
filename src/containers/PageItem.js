@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getHomePageId, get404PageId } from '../selectors';
+import { getHomePageId, get404PageId, getPageURL } from '../selectors';
 import { setHomePage, set404Page, unset404Page, publishPage } from '../actions';
 import Button from '../components/Button';
 
@@ -13,11 +13,16 @@ const PageItem = ( props ) => {
       ( props.is_homepage  ? ' homepage'  : '' ),
       ( props.is_404_page  ? ' page404'   : '' ),
    ].join( '' );
+
+   // TODO: Redirect to the page with SK.Actions
+   // const onItemClick   = () => { redirect( SK.Util.buildLink( props.full_url ) )  };
+   const onItemClick   = () => { console.log( 'Go to:', props.full_url ) };
    const setHomePage   = props.is_homepage ? function () {} : props.setHomePage;
    const toggle404Page = props.is_404_page ? props.unset404Page : props.set404Page;
+   const publishPage   = props.publishPage;
 
    return (
-      <div className={ class_name }>
+      <div className={ class_name } onClick={ onItemClick }>
          <span className="sk-mp-pageslist-item-title">{ props.name }</span>
          <Button className="sk-mp-pageslist-item-btn btn-delete"/>
          <Button className="sk-mp-pageslist-item-btn btn-edit"/>
@@ -25,12 +30,13 @@ const PageItem = ( props ) => {
          <Button className="sk-mp-pageslist-item-btn btn-duplicate sk-ui-advanced-option"/>
          <Button className="sk-mp-pageslist-item-btn btn-move sk-ui-advanced-option"/>
          <Button className="sk-mp-pageslist-item-btn btn-404 sk-ui-advanced-option" onClick={ toggle404Page }/>
-         <Button className="sk-mp-pageslist-item-btn btn-publish sk-ui-advanced-option" onClick={ props.publishPage }/>
+         <Button className="sk-mp-pageslist-item-btn btn-publish sk-ui-advanced-option" onClick={ publishPage }/>
       </div>
    );
 };
 
 const mapStateToProps = ( state, own_props ) => ({
+   full_url    : getPageURL( state, own_props.id ),
    is_homepage : getHomePageId( state ) === own_props.id,
    is_404_page : get404PageId( state ) === own_props.id,
    is_visible  : true, // TODO: Use the current filter

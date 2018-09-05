@@ -36,3 +36,8 @@ export const getHomePageId = ( state ) => {
 export const get404PageId = ( state ) => {
    return state.page_404_id;
 };
+
+export const getPageURL = ( state, page_id ) => {
+   const folder_id = state.page_folders[ page_id ];
+   return `${state.folders.items[ folder_id ].url}/${state.pages.items[ page_id ].url}`;
+};
