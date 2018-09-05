@@ -2,9 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getPagesByFolderId } from '../selectors';
 import PageItem from './PageItem';
+import EmptyFolder from '../components/EmptyFolder';
 
 const PagesList = ( props ) => {
-   // console.log( props.folder_id, props.data );
+   // console.log( '>>> pages list', props.folder_id, props.data );
+
+   // If the selected folder have not pages - display an empty folder area.
+   if ( ! props.data.length ) {
+      return <EmptyFolder/>;
+   }
 
    return (
       <div className="sk-mp-pageslist">

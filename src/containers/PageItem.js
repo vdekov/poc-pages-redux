@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getHomePageId, get404PageId, getPageURL } from '../selectors';
-import { setHomePage, set404Page, unset404Page, publishPage } from '../actions';
+import {
+   getHomePageId,
+   get404PageId,
+   getPageURL,
+} from '../selectors';
+import {
+   setHomePage,
+   set404Page,
+   unset404Page,
+   publishPage,
+} from '../actions';
 import Button from '../components/Button';
 
 const PageItem = ( props ) => {
-   console.log( '>>> page item', props );
+   // console.log( '>>> page item', props );
 
    const class_name = [
       'sk-mp-pageslist-item',

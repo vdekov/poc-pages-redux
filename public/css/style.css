@@ -1,6 +1,8 @@
 #app {
    width: 390px;
    background-color: #d5d5d5;
+   font-family: Lato2, Helvetica, Arial, sans-serif;
+   font-size: 11px;
 }
 
 #sk-mp-searchbox {
@@ -174,4 +176,18 @@
 .sk-mp-folders-item:hover .sk-mp-folders-item-btn.btn-delete,
 .sk-mp-redirects-item:hover .sk-mp-redirects-item-btn.btn-delete {
    background-position: -8px -197px;
+}
+
+/* New CSS styles */
+.sk-mp-folder-empty {
+   text-align: center;
+}
+
+.sk-mp-folder-empty p {
+   margin: 0;
+   padding: 0;
+}
+
+.sk-mp-folder-empty p:first-child {
+   font-weight: bold;
 }
