@@ -14,7 +14,7 @@ export const requestCreateFolder = ( name, url ) => {
    };
 };
 
-export const successCreateFolder = ( id, name, url ) => ({
+const successCreateFolder = ( id, name, url ) => ({
    type    : constants.CREATE_FOLDER,
    payload : {
       id,
@@ -34,6 +34,7 @@ export const changeFilter = ( filter ) => ({
    filter,
 });
 
+// Page action creators
 export const setHomePage = ( id ) => ({
    type : constants.SET_HOME_PAGE,
    id
@@ -51,5 +52,17 @@ export const unset404Page = ( id ) => ({
 
 export const publishPage = ( id ) => ({
    type : constants.PUBLISH_PAGE,
+   id
+});
+
+export const requestDeletePage = ( id ) => {
+   return ( dispatch ) => {
+      // Run `object.page.remove` API call
+      return dispatch( successDeletePage ( id ) );
+   };
+};
+
+const successDeletePage = ( id ) => ({
+   type : constants.DELETE_PAGE,
    id
 });

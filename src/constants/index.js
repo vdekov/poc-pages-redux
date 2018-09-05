@@ -4,3 +4,4 @@ export const SET_HOME_PAGE = 'SET_HOME_PAGE';
 export const SET_404_PAGE = 'SET_404_PAGE';
 export const UNSET_404_PAGE = 'UNSET_404_PAGE';
 export const PUBLISH_PAGE = 'PUBLISH_PAGE';
+export const DELETE_PAGE = 'DELETE_PAGE';

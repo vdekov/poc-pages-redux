@@ -10,6 +10,7 @@ import {
    set404Page,
    unset404Page,
    publishPage,
+   requestDeletePage,
 } from '../actions';
 import Button from '../components/Button';
 
@@ -29,11 +30,12 @@ const PageItem = ( props ) => {
    const setHomePage   = props.is_homepage ? function () {} : props.setHomePage;
    const toggle404Page = props.is_404_page ? props.unset404Page : props.set404Page;
    const publishPage   = props.publishPage;
+   const deletePage    = props.deletePage;
 
    return (
       <div className={ class_name } onClick={ onItemClick }>
          <span className="sk-mp-pageslist-item-title">{ props.name }</span>
-         <Button className="sk-mp-pageslist-item-btn btn-delete"/>
+         <Button className="sk-mp-pageslist-item-btn btn-delete" onClick={ deletePage }/>
          <Button className="sk-mp-pageslist-item-btn btn-edit"/>
          <Button className="sk-mp-pageslist-item-btn btn-home" onClick={ setHomePage }/>
          <Button className="sk-mp-pageslist-item-btn btn-duplicate sk-ui-advanced-option"/>
@@ -63,6 +65,9 @@ const mapDispatchToProps = ( dispatch, own_props ) => ({
    },
    publishPage : () => {
       dispatch( publishPage( own_props.id ) )
+   },
+   deletePage : () => {
+      dispatch( requestDeletePage ( own_props.id ) )
    },
 });
 
