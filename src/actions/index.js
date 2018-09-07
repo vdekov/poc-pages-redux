@@ -67,13 +67,36 @@ const successDeletePage = ( id ) => ({
    id
 });
 
-// const successDuplicatePage = ( id ) => ({});
+// TODO: Temporary function - using just to generate a page ID.
+const getRandomArbitrary = ( min, max ) => {
+   return Math.round( Math.random() * ( max - min ) + min );
+}
+
+export const requestDuplicatePage = ( id , name, url) => {
+   return ( dispatch ) => {
+      // Run `object.page.duplicate` API call
+      // TODO: In the real case `duplicated_page_id`, `name` and `url`
+      // will be returned from the API call.
+      const duplicated_page = {
+         id   : getRandomArbitrary( 150, 300 ),
+         url  : `${url}_1`,
+         name : `Copy of ${name}`,
+      };
+      return dispatch( successDuplicatePage( id, duplicated_page ) );
+   };
+};
+
+const successDuplicatePage = ( id, duplicated_page ) => ({
+   type : constants.DUPLICATE_PAGE,
+   id,
+   duplicated_page,
+});
 
 export const requestMovePageToFolder = ( page_id, folder_id ) => {
    return ( dispatch ) => {
       // Run `object.page.move_to_folder` API call
       return dispatch( successMovePageToFolder( page_id, folder_id ) );
-   }
+   };
 };
 
 const successMovePageToFolder = ( page_id, folder_id ) => ({

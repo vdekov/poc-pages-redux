@@ -3,6 +3,8 @@ import * as constants from '../constants';
 
 const order = ( state = [], action ) => {
    switch ( action.type ) {
+   case constants.DUPLICATE_PAGE:
+      return [ ...state, action.duplicated_page.id ];
    case constants.DELETE_PAGE:
       return state.filter( page_id => page_id !== action.id );
    default:
@@ -16,6 +18,11 @@ const items = ( state = {}, action ) => {
       return {
          ...state,
          [ action.id ] : { ...state[ action.id ], is_published : true }
+      };
+   case constants.DUPLICATE_PAGE:
+      return {
+         ...state,
+         [ action.duplicated_page.id ] : { ...action.duplicated_page, is_published : false },
       };
    case constants.DELETE_PAGE:
       const next_state = { ...state };
