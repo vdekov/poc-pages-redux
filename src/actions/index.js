@@ -1,16 +1,30 @@
 import * as constants from '../constants';
 
+// TODO: Temporary functions - using just to generate a page ID.
+const getRandomArbitrary = ( min, max ) => {
+   return Math.round( Math.random() * ( max - min ) + min );
+};
+
+const slugify = ( text ) => {
+   return text.toString().toLowerCase()
+         .replace( /\s+/g, '-' )           // Replace spaces with -
+         .replace( /[^\w-]+/g, '' )       // Remove all non-word chars
+         .replace( /--+/g, '-' )         // Replace multiple - with single -
+         .replace( /^-+/, '' )             // Trim - from start of text
+         .replace( /-+$/, '' );            // Trim - from end of text
+};
+
 // Folder action creators
-export const requestCreateFolder = ( name, url ) => {
+export const requestCreateFolder = ( name ) => {
    return ( dispatch ) => {
       // Run `site.folder.add` API call
       return setTimeout( () => {
          dispatch( successCreateFolder(
-            Math.round( Math.random() * 100 ),
+            getRandomArbitrary( 10, 100 ),
             name,
-            url
+            slugify( name ),
          ));
-      }, 1000 );
+      }, 100 );
    };
 };
 
@@ -67,11 +81,6 @@ const successDeletePage = ( id ) => ({
    type : constants.DELETE_PAGE,
    id
 });
-
-// TODO: Temporary function - using just to generate a page ID.
-const getRandomArbitrary = ( min, max ) => {
-   return Math.round( Math.random() * ( max - min ) + min );
-}
 
 export const requestDuplicatePage = ( id , name, url) => {
    return ( dispatch ) => {

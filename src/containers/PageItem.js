@@ -35,7 +35,7 @@ class PageItem extends React.Component {
 
       return (
          <div className={ this.getCSSClasses() } onClick={ this.onItemClick }>
-            <span className="sk-mp-pageslist-item-title">{ this.props.name } (id: { this.props.id})</span>
+            <span className="sk-mp-pageslist-item-title">{ this.props.name } (id: { this.props.id })</span>
             <DeletePageButton className="sk-mp-pageslist-item-btn btn-delete" is_homepage={ this.props.is_homepage } onClick={ this.deletePage }/>
             <Button className="sk-mp-pageslist-item-btn btn-edit"/>
             <Button className="sk-mp-pageslist-item-btn btn-home" onClick={ this.setHomePage }/>

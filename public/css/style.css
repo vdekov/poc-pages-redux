@@ -7,8 +7,9 @@
 }
 
 #sk-mp-searchbox {
-   margin-bottom: 10px;
+   margin-bottom: 20px;
    padding: 0 10px;
+   clear: both;
 }
 
 #sk-mp-searchbox .sb-wrapper {
@@ -191,4 +192,16 @@
 
 .sk-mp-folder-empty p:first-child {
    font-weight: bold;
+}
+
+.sk-mp-addfolder {
+   display: inline-block;
+   float: right;
+   width: 60px;
+   height: 30px;
+   background-image: url('/Images/sprite.svg');
+   background-color: #0071dd;
+   background-repeat:  no-repeat;
+   background-position: 14px -309px;
+   cursor: pointer;
 }

@@ -31,7 +31,7 @@ const mergeProps = ( state_props, dispatch_props, own_props ) => {
             // Make check if we're trying to delete the current homepage
             if ( is_homepage ) {
                // Display popup for selection of a new home page
-               const new_homepage_id = prompt( 'Type the new homepage ID:' );
+               const new_homepage_id = window.prompt( 'Type the new homepage ID:' );
                if ( ! new_homepage_id ) {
                   return;
                }
