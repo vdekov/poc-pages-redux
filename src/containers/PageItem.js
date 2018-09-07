@@ -15,6 +15,7 @@ import {
    requestMovePageToFolder,
 } from '../actions';
 import Button from '../components/Button';
+import DeletePageButton from './DeletePageButton';
 
 class PageItem extends React.Component {
    constructor( props ) {
@@ -35,7 +36,7 @@ class PageItem extends React.Component {
       return (
          <div className={ this.getCSSClasses() } onClick={ this.onItemClick }>
             <span className="sk-mp-pageslist-item-title">{ this.props.name } (id: { this.props.id})</span>
-            <Button className="sk-mp-pageslist-item-btn btn-delete" onClick={ this.deletePage }/>
+            <DeletePageButton className="sk-mp-pageslist-item-btn btn-delete" is_homepage={ this.props.is_homepage } onClick={ this.deletePage }/>
             <Button className="sk-mp-pageslist-item-btn btn-edit"/>
             <Button className="sk-mp-pageslist-item-btn btn-home" onClick={ this.setHomePage }/>
             <Button className="sk-mp-pageslist-item-btn btn-duplicate sk-ui-advanced-option" onClick={ this.duplicatePage }/>

@@ -41,3 +41,7 @@ export const getPageURL = ( state, page_id ) => {
    const folder_id = state.page_folders[ page_id ];
    return `${state.folders.items[ folder_id ].url}/${state.pages.items[ page_id ].url}`;
 };
+
+export const getTotalPagesCount = ( state ) => {
+   return state.length;
+};

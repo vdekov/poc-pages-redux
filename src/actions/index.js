@@ -35,6 +35,7 @@ export const changeFilter = ( filter ) => ({
 });
 
 // Page action creators
+// TODO: Execute `site.set_home_page` API call
 export const setHomePage = ( id ) => ({
    type : constants.SET_HOME_PAGE,
    id
