@@ -58,11 +58,26 @@ export const publishPage = ( id ) => ({
 export const requestDeletePage = ( id ) => {
    return ( dispatch ) => {
       // Run `object.page.remove` API call
-      return dispatch( successDeletePage ( id ) );
+      return dispatch( successDeletePage( id ) );
    };
 };
 
 const successDeletePage = ( id ) => ({
    type : constants.DELETE_PAGE,
    id
+});
+
+// const successDuplicatePage = ( id ) => ({});
+
+export const requestMovePageToFolder = ( page_id, folder_id ) => {
+   return ( dispatch ) => {
+      // Run `object.page.move_to_folder` API call
+      return dispatch( successMovePageToFolder( page_id, folder_id ) );
+   }
+};
+
+const successMovePageToFolder = ( page_id, folder_id ) => ({
+   type : constants.MOVE_PAGE_TO_FOLDER,
+   page_id,
+   folder_id,
 });

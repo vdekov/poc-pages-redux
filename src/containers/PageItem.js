@@ -11,6 +11,7 @@ import {
    unset404Page,
    publishPage,
    requestDeletePage,
+   requestMovePageToFolder,
 } from '../actions';
 import Button from '../components/Button';
 
@@ -31,15 +32,24 @@ const PageItem = ( props ) => {
    const toggle404Page = props.is_404_page ? props.unset404Page : props.set404Page;
    const publishPage   = props.publishPage;
    const deletePage    = props.deletePage;
+   const movePageToFolder = () => {
+      var folder_id = window.prompt( 'Fill the folder ID where you want to move the page (0 for the root folder):', 0 );
+
+      if ( ! folder_id ) {
+         return;
+      }
+
+      props.movePageToFolder( parseInt( folder_id, 10 ) );
+   };
 
    return (
       <div className={ class_name } onClick={ onItemClick }>
-         <span className="sk-mp-pageslist-item-title">{ props.name }</span>
+         <span className="sk-mp-pageslist-item-title">{ props.name } (id: { props.id})</span>
          <Button className="sk-mp-pageslist-item-btn btn-delete" onClick={ deletePage }/>
          <Button className="sk-mp-pageslist-item-btn btn-edit"/>
          <Button className="sk-mp-pageslist-item-btn btn-home" onClick={ setHomePage }/>
          <Button className="sk-mp-pageslist-item-btn btn-duplicate sk-ui-advanced-option"/>
-         <Button className="sk-mp-pageslist-item-btn btn-move sk-ui-advanced-option"/>
+         <Button className="sk-mp-pageslist-item-btn btn-move sk-ui-advanced-option" onClick={ movePageToFolder }/>
          <Button className="sk-mp-pageslist-item-btn btn-404 sk-ui-advanced-option" onClick={ toggle404Page }/>
          <Button className="sk-mp-pageslist-item-btn btn-publish sk-ui-advanced-option" onClick={ publishPage }/>
       </div>
@@ -68,6 +78,9 @@ const mapDispatchToProps = ( dispatch, own_props ) => ({
    },
    deletePage : () => {
       dispatch( requestDeletePage ( own_props.id ) )
+   },
+   movePageToFolder : ( folder_id ) => {
+      dispatch( requestMovePageToFolder( own_props.id, folder_id ) )
    },
 });
 
