@@ -1,4 +1,8 @@
 import * as constants from '../constants';
+import {
+   setHomePageAPI,
+   deletePageAPI,
+} from '../api';
 
 // TODO: Temporary functions - using just to generate a page ID.
 const getRandomArbitrary = ( min, max ) => {
@@ -19,7 +23,7 @@ export const requestCreateFolder = ( name ) => {
    return ( dispatch ) => {
       // Run `site.folder.add` API call
       return setTimeout( () => {
-         dispatch( successCreateFolder(
+         dispatch( createFolder(
             getRandomArbitrary( 10, 100 ),
             name,
             slugify( name ),
@@ -28,7 +32,7 @@ export const requestCreateFolder = ( name ) => {
    };
 };
 
-const successCreateFolder = ( id, name, url ) => ({
+const createFolder = ( id, name, url ) => ({
    type    : constants.CREATE_FOLDER,
    payload : {
       id,
@@ -49,10 +53,16 @@ export const changeFilter = ( filter ) => ({
 });
 
 // Page action creators
-// TODO: Execute `site.set_home_page` API call
-export const setHomePage = ( id ) => ({
+export const requestSetHomePage = id => {
+   return dispatch => {
+      setHomePageAPI( id );
+      return dispatch( setHomePage( id ) );
+   };
+};
+
+const setHomePage = id => ({
    type : constants.SET_HOME_PAGE,
-   id
+   id,
 });
 
 export const set404Page = ( id ) => ({
@@ -72,12 +82,12 @@ export const publishPage = ( id ) => ({
 
 export const requestDeletePage = ( id ) => {
    return ( dispatch ) => {
-      // Run `object.page.remove` API call
-      return dispatch( successDeletePage( id ) );
+      deletePageAPI( id );
+      return dispatch( deletePage( id ) );
    };
 };
 
-const successDeletePage = ( id ) => ({
+const deletePage = ( id ) => ({
    type : constants.DELETE_PAGE,
    id
 });
@@ -92,11 +102,11 @@ export const requestDuplicatePage = ( id , name, url) => {
          url  : `${url}_1`,
          name : `Copy of ${name}`,
       };
-      return dispatch( successDuplicatePage( id, duplicated_page ) );
+      return dispatch( duplicatePage( id, duplicated_page ) );
    };
 };
 
-const successDuplicatePage = ( id, duplicated_page ) => ({
+const duplicatePage = ( id, duplicated_page ) => ({
    type : constants.DUPLICATE_PAGE,
    id,
    duplicated_page,
@@ -105,12 +115,27 @@ const successDuplicatePage = ( id, duplicated_page ) => ({
 export const requestMovePageToFolder = ( page_id, folder_id ) => {
    return ( dispatch ) => {
       // Run `object.page.move_to_folder` API call
-      return dispatch( successMovePageToFolder( page_id, folder_id ) );
+      return dispatch( movePageToFolder( page_id, folder_id ) );
    };
 };
 
-const successMovePageToFolder = ( page_id, folder_id ) => ({
+const movePageToFolder = ( page_id, folder_id ) => ({
    type : constants.MOVE_PAGE_TO_FOLDER,
    page_id,
    folder_id,
 });
+
+export const requestDeleteHomePage = ( next_homepage_id ) => {
+   return ( dispatch, getState ) => {
+      const homepage_id = getState().page_home_id;
+
+      // Dispatch set/delete home page action creators
+      dispatch( setHomePage( next_homepage_id ) );
+      dispatch( deletePage( homepage_id ) );
+
+      // Run both APIs synchronously
+      setHomePageAPI( next_homepage_id ).then( () => {
+         deletePageAPI( homepage_id );
+      });
+   };
+};

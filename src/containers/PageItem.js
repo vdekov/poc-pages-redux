@@ -6,7 +6,7 @@ import {
    getPageURL,
 } from '../selectors';
 import {
-   setHomePage,
+   requestSetHomePage,
    set404Page,
    unset404Page,
    publishPage,
@@ -105,7 +105,7 @@ const mapStateToProps = ( state, own_props ) => ({
 
 const mapDispatchToProps = ( dispatch, own_props ) => ({
    setHomePage : () => {
-      dispatch( setHomePage( own_props.id ) )
+      dispatch( requestSetHomePage( own_props.id ) )
    },
    set404Page : () => {
       dispatch( set404Page( own_props.id ) )

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
@@ -10,10 +10,14 @@ import preloaded_data from './store/data';
 
 import './styles.css';
 
+// Enable Redux DevTools browser extension (if available)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
    root_reducer,
    preloaded_data,
-   applyMiddleware( thunk, createLogger() )
+   composeEnhancers(
+      applyMiddleware( thunk, createLogger() )
+   )
 );
 
 console.log( store.getState() );

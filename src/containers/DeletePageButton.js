@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import Button from '../components/Button';
 import { getTotalPagesCount } from '../selectors';
-import { setHomePage } from '../actions';
+import { requestDeleteHomePage } from '../actions';
 
 const mapStateToProps = ( state, own_props ) => ({
    total_pages_count : getTotalPagesCount( state.pages.order ),
 });
 
 const mapDispatchToProps = ( dispatch, own_props ) => ({
-   setHomePage : ( id ) => {
-      dispatch( setHomePage( id ) );
+   deleteHomePage : ( next_homepage_id ) => {
+      dispatch( requestDeleteHomePage( next_homepage_id ) );
    },
 });
 
@@ -31,11 +31,12 @@ const mergeProps = ( state_props, dispatch_props, own_props ) => {
             // Make check if we're trying to delete the current homepage
             if ( is_homepage ) {
                // Display popup for selection of a new home page
-               const new_homepage_id = window.prompt( 'Type the new homepage ID:' );
-               if ( ! new_homepage_id ) {
+               const next_homepage_id = window.prompt( 'Type the next homepage ID:' );
+               if ( ! next_homepage_id ) {
                   return;
                }
-               dispatch_props.setHomePage( parseInt( new_homepage_id, 10 ) );
+               dispatch_props.deleteHomePage( parseInt( next_homepage_id, 10 ) );
+               return;
             }
 
             own_props.onClick();
