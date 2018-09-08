@@ -4,6 +4,7 @@ import {
    getHomePageId,
    get404PageId,
    getPageURL,
+   getTotalPagesCount,
 } from '../selectors';
 import {
    requestSetHomePage,
@@ -11,11 +12,11 @@ import {
    unset404Page,
    publishPage,
    requestDeletePage,
+   requestDeleteHomePage,
    requestDuplicatePage,
    requestMovePageToFolder,
 } from '../actions';
 import Button from '../components/Button';
-import DeletePageButton from './DeletePageButton';
 
 class PageItem extends React.Component {
    constructor( props ) {
@@ -36,7 +37,7 @@ class PageItem extends React.Component {
       return (
          <div className={ this.getCSSClasses() } onClick={ this.onItemClick }>
             <span className="sk-mp-pageslist-item-title">{ this.props.name } (id: { this.props.id })</span>
-            <DeletePageButton className="sk-mp-pageslist-item-btn btn-delete" is_homepage={ this.props.is_homepage } onClick={ this.deletePage }/>
+            <Button className="sk-mp-pageslist-item-btn btn-delete" onClick={ this.deletePage }/>
             <Button className="sk-mp-pageslist-item-btn btn-edit"/>
             <Button className="sk-mp-pageslist-item-btn btn-home" onClick={ this.setHomePage }/>
             <Button className="sk-mp-pageslist-item-btn btn-duplicate sk-ui-advanced-option" onClick={ this.duplicatePage }/>
@@ -66,23 +67,46 @@ class PageItem extends React.Component {
       if ( this.props.is_homepage ) {
          return;
       }
-      this.props.setHomePage();
+      this.props.dispatch( requestSetHomePage( this.props.id ) );
    }
 
    toggle404Page() {
-      this.props.is_404_page ? this.props.unset404Page() : this.props.set404Page();
+      const method = this.props.is_404_page ? unset404Page : set404Page;
+      this.props.dispatch( method( this.props.id ) );
    }
 
    publishPage() {
-      this.props.publishPage();
+      this.props.dispatch( publishPage( this.props.id ) );
    }
 
    deletePage() {
-      this.props.deletePage();
+      if ( this.props.total_pages_count === 1 ) {
+         alert( 'You cannot delete the only page in your site.' );
+         return;
+      }
+
+      // Run `object.page.get` with { references : 1 } parameter
+      setTimeout( () => {
+         // TODO: If there are references display popup
+
+         // Make check if we're trying to delete the current homepage
+         if ( this.props.is_homepage ) {
+            // Display popup for selection of a new home page
+            const next_homepage_id = window.prompt( 'Type the next homepage ID:' );
+            if ( ! next_homepage_id ) {
+               return;
+            }
+            this.props.dispatch( requestDeleteHomePage( parseInt( next_homepage_id, 10 ) ) );
+            return;
+         }
+
+         this.props.dispatch( requestDeletePage( this.props.id ) );
+      }, 100 );
    }
 
    duplicatePage() {
-      this.props.duplicatePage();
+      // TODO: In real case - do not pass `name` and `url` props.
+      this.props.dispatch( requestDuplicatePage( this.props.id, this.props.name, this.props.url ) )
    }
 
    movePageToFolder() {
@@ -92,7 +116,7 @@ class PageItem extends React.Component {
          return;
       }
 
-      this.props.movePageToFolder( parseInt( folder_id, 10 ) );
+      this.props.dispatch( requestMovePageToFolder( this.props.id, parseInt( folder_id, 10 ) ) )
    }
 };
 
@@ -101,31 +125,7 @@ const mapStateToProps = ( state, own_props ) => ({
    is_homepage : getHomePageId( state ) === own_props.id,
    is_404_page : get404PageId( state ) === own_props.id,
    is_visible  : true, // TODO: Use the current filter
+   total_pages_count : getTotalPagesCount( state.pages.order ),
 });
 
-const mapDispatchToProps = ( dispatch, own_props ) => ({
-   setHomePage : () => {
-      dispatch( requestSetHomePage( own_props.id ) )
-   },
-   set404Page : () => {
-      dispatch( set404Page( own_props.id ) )
-   },
-   unset404Page : () => {
-      dispatch( unset404Page( own_props.id ) )
-   },
-   publishPage : () => {
-      dispatch( publishPage( own_props.id ) )
-   },
-   deletePage : () => {
-      dispatch( requestDeletePage( own_props.id ) )
-   },
-   duplicatePage : () => {
-      // TODO: In real case - do not pass `name` and `url` props.
-      dispatch( requestDuplicatePage( own_props.id, own_props.name, own_props.url ) )
-   },
-   movePageToFolder : ( folder_id ) => {
-      dispatch( requestMovePageToFolder( own_props.id, folder_id ) )
-   },
-});
-
-export default connect( mapStateToProps, mapDispatchToProps )( PageItem );
+export default connect( mapStateToProps )( PageItem );
