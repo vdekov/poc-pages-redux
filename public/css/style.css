@@ -195,6 +195,7 @@
 }
 
 .sk-mp-folder-empty p:first-child {
+   font-size: 13px;
    font-weight: bold;
 }
 

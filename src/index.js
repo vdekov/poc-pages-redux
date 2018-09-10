@@ -18,8 +18,6 @@ const store = createStore(
    )
 );
 
-console.log( store.getState() );
-
 const root = document.getElementById( 'root' );
 render(
    <Provider store={ store }>

@@ -47,6 +47,18 @@ export const requestUpdateFolder = ( id, name, url ) => {
    }
 };
 
+export const requestDeleteFolder = ( id ) => {
+   return ( dispatch ) => {
+      // Run `site.folder.remove` API call
+      return dispatch( deleteFolder( id ) );
+   }
+};
+
+const deleteFolder = ( id ) => ({
+   type : constants.DELETE_FOLDER,
+   id,
+});
+
 export const changeFilter = ( filter ) => ({
    type : constants.CHANGE_FILTER,
    filter,
