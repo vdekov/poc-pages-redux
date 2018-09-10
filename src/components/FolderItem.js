@@ -3,17 +3,42 @@ import FolderItemHeader from './FolderItemHeader';
 import DroppableArea from '../containers/DroppableArea';
 import PagesList from '../containers/PagesList';
 
-const FolderItem = ( props ) => {
-   // console.log( '>>> folder item', props );
+class FolderItem extends React.Component {
+   constructor( props ) {
+      super( props )
 
-   return (
-      <div className="sk-mp-folderitem">
-         { !! props.name && <FolderItemHeader { ...props }/> }
-         <DroppableArea id={ props.id }>
-            <PagesList folder_id={ props.id }/>
-         </DroppableArea>
-      </div>
-   );
+      this.togglePagesList = this.togglePagesList.bind( this );
+
+      this.state = {
+         is_expanded : true,
+      };
+   }
+
+   render() {
+      // console.log( '>>> folder item', this.props );
+
+      return (
+         <div className={ this.getCSSClasses() }>
+            { !! this.props.name && <FolderItemHeader { ...this.props } onClick={ this.togglePagesList }/> }
+            <DroppableArea id={ this.props.id }>
+               <PagesList folder_id={ this.props.id }/>
+            </DroppableArea>
+         </div>
+      );
+   }
+
+   getCSSClasses() {
+      return [
+         'sk-mp-folders-item',
+         ( this.state.is_expanded ? 'expanded' : 'collapsed' ),
+      ].join( ' ' );
+   }
+
+   togglePagesList( event ) {
+      this.setState( ( prev_state ) => ({
+         is_expanded : ! prev_state.is_expanded
+      }));
+   }
 };
 
 export default FolderItem;
