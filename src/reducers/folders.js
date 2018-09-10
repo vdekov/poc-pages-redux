@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import {
    CREATE_FOLDER,
+   UPDATE_FOLDER,
    DELETE_FOLDER,
 } from '../constants';
 
@@ -26,10 +27,11 @@ const default_items_state = {
 const items = ( state = default_items_state, action ) => {
    switch ( action.type ) {
    case CREATE_FOLDER:
+   case UPDATE_FOLDER:
       return {
          ...state,
          [ action.payload.id ] : action.payload,
-      }
+      };
    case DELETE_FOLDER:
       const next_state = { ...state };
       delete next_state[ action.id ];

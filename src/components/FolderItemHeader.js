@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from '../components/Button';
-import { requestDeleteFolder } from '../actions';
+import {
+   requestDeleteFolder,
+   requestUpdateFolder,
+} from '../actions';
 
 class FolderItemHeader extends React.Component {
    constructor( props ) {
@@ -31,7 +34,15 @@ class FolderItemHeader extends React.Component {
       should_delete && this.props.dispatch( requestDeleteFolder( this.props.id ) );
    }
 
-   editFolder() {}
+   editFolder() {
+      const folder_name = window.prompt( 'Type the new folder name:', this.props.name );
+
+      if ( ! folder_name || ! folder_name.trim() || folder_name === this.props.name ) {
+         return;
+      }
+
+      this.props.dispatch( requestUpdateFolder( this.props.id, folder_name ) );
+   }
 };
 
 export default connect()( FolderItemHeader );

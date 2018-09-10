@@ -26,7 +26,7 @@ export const requestCreateFolder = ( name ) => {
          dispatch( createFolder(
             getRandomArbitrary( 10, 100 ),
             name,
-            slugify( name ),
+            slugify( name )
          ));
       }, 100 );
    };
@@ -38,14 +38,28 @@ const createFolder = ( id, name, url ) => ({
       id,
       name,
       url,
-   }
+   },
 });
 
-export const requestUpdateFolder = ( id, name, url ) => {
+export const requestUpdateFolder = ( id, name ) => {
    return ( dispatch ) => {
       // Run `site.folder.update` API call
+      return dispatch( updateFolder(
+         id,
+         name,
+         slugify( name )
+      ));
    }
 };
+
+const updateFolder = ( id, name, url ) => ({
+   type    : constants.UPDATE_FOLDER,
+   payload : {
+      id,
+      name,
+      url,
+   },
+});
 
 export const requestDeleteFolder = ( id ) => {
    return ( dispatch ) => {
