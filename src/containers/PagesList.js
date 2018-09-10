@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getPagesByFolderId } from '../selectors';
+import DraggableItem from './DraggableItem';
 import PageItem from './PageItem';
 import EmptyFolder from '../components/EmptyFolder';
 
@@ -14,7 +15,11 @@ const PagesList = ( props ) => {
 
    return (
       <div className="sk-mp-pageslist">
-         { props.data.map( item => <PageItem key={ item.id } { ...item }/> ) }
+         { props.data.map( item =>
+            <DraggableItem key={ item.id } item_id={ item.id } parent_id={ props.folder_id }>
+               <PageItem { ...item }/>
+            </DraggableItem>
+         )}
       </div>
    );
 };
