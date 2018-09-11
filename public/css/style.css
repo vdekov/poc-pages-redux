@@ -6,28 +6,29 @@
    padding: 1px 0;
 }
 
-#sk-mp-searchbox {
+.sk-mp-searchbox {
+   position: relative;
    margin-bottom: 20px;
-   padding: 0 10px;
+   padding: 10px 10px 0 10px;
    clear: both;
 }
 
-#sk-mp-searchbox .sb-wrapper {
+.sk-mp-searchbox .sb-wrapper {
    width: 100%;
 }
 
-#sk-mp-searchbox .sb-wrapper .sb-field {
+.sk-mp-searchbox .sb-wrapper .sb-field {
    width: 100%;
    height: 32px;
    box-sizing: border-box;
 }
 
-#sk-mp-searchbox .sb-wrapper .sb-label {
+.sk-mp-searchbox .sb-wrapper .sb-label {
    padding: 8px 6px;
    background: url('/Images/sprite.svg') no-repeat 98% -215px / 30px;
 }
 
-#sk-mp-searchbox .sb-wrapper .sb-clear {
+.sk-mp-searchbox .sb-wrapper .sb-clear {
    margin: -11px 10px;
 }
 
@@ -184,6 +185,40 @@
 }
 
 /* New CSS styles */
+.sk-mp-searchbox > input[type="text"] {
+   width: 100%;
+   height: 32px;
+   padding: 6px;
+   box-sizing: border-box;
+   border: none;
+   border-radius: 3px;
+}
+
+.sk-mp-searchbox .sk-mp-searchbox-magnifier {
+   position: absolute;
+   top: 21px;
+   right: 3px;
+   width: 22px;
+   height: 22px;
+   margin: -11px 10px;
+   background: url('/Images/sprite.svg') no-repeat 98% -215px / 30px;
+   pointer-events: none;
+}
+
+.sk-mp-searchbox.focused .sk-mp-searchbox-magnifier {
+   opacity: 0.5;
+}
+
+.sk-mp-searchbox .sk-mp-searchbox-clear {
+   position: absolute;
+   top: 29px;
+   right: 10px;
+   width: 15px;
+   height: 15px;
+   margin: -11px 10px;
+   background: url('//fl.sitekreator.com/Shared/Images/buttons.svg') no-repeat center -874px;
+}
+
 .sk-mp-folder-empty {
    text-align: center;
    margin-bottom: 10px;

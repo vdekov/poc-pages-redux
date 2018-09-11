@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getPagesByFolderId } from '../selectors';
+import { getVisiblePagesByFolderId } from '../selectors';
 import DraggableItem from './DraggableItem';
 import PageItem from './PageItem';
 import EmptyFolder from '../components/EmptyFolder';
@@ -25,7 +25,7 @@ const PagesList = ( props ) => {
 };
 
 const mapStateToProps = ( state, own_props ) => ({
-   data : getPagesByFolderId( state, own_props.folder_id ),
+   data : getVisiblePagesByFolderId( state, own_props.folder_id ),
 });
 
 export default connect( mapStateToProps )( PagesList );

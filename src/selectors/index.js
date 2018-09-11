@@ -6,7 +6,7 @@ export const getAllFolders = ( state ) => {
    return state.order.map( folder_id => state.items[ folder_id ] );
 };
 
-export const getPagesByFolderId = ( state, folder_id ) => {
+export const getVisiblePagesByFolderId = ( state, folder_id ) => {
    const page_ids   = [];
    const page_items = [];
 
@@ -21,7 +21,10 @@ export const getPagesByFolderId = ( state, folder_id ) => {
    }
 
    state.pages.order.forEach( page_id => {
-      if ( page_ids.includes( page_id ) ) {
+      if (
+         page_ids.includes( page_id )
+         && ~ state.pages.items[ page_id ].name.toLowerCase().indexOf( state.filter.toLowerCase() ) 
+      ) {
          page_items.push( state.pages.items[ page_id ] );
       }
    });
