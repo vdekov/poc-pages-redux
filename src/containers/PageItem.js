@@ -32,8 +32,6 @@ class PageItem extends React.Component {
    }
 
    render() {
-      // console.log( '>>> page item', this.props );
-
       return (
          <div className={ this.getCSSClasses() } onClick={ this.onItemClick }>
             <span className="sk-mp-pageslist-item-title">{ this.props.name }</span>

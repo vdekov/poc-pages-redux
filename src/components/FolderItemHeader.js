@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Button from '../components/Button';
+import Button from './Button';
 import {
    requestDeleteFolder,
    requestUpdateFolder,

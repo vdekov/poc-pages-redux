@@ -6,8 +6,6 @@ import PageItem from './PageItem';
 import EmptyFolder from '../components/EmptyFolder';
 
 const PagesList = ( props ) => {
-   // console.log( '>>> pages list', props.folder_id, props.data );
-
    // If the selected folder have not pages - display an empty folder area.
    if ( ! props.data.length ) {
       return <EmptyFolder/>;

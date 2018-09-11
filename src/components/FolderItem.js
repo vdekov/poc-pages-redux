@@ -15,8 +15,6 @@ class FolderItem extends React.Component {
    }
 
    render() {
-      // console.log( '>>> folder item', this.props );
-
       return (
          <div className={ this.getCSSClasses() }>
             { !! this.props.name && <FolderItemHeader { ...this.props } onClick={ this.togglePagesList }/> }

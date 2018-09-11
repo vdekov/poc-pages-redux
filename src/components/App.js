@@ -1,12 +1,12 @@
 import React from 'react';
-import AddFolderButton from '../containers/AddFolderButton';
+import Header from './Header';
 import SearchBox from '../containers/SearchBox';
 import FoldersList from '../containers/FoldersList';
 
 const App = () => (
    <div id="app">
-      <AddFolderButton className="sk-mp-addfolder"/>
-      <SearchBox id="sk-mp-searchbox" placeholder="Search..."/>
+      <Header/>
+      <SearchBox placeholder="Search..."/>
       <FoldersList/>
    </div>
 );
