@@ -1,5 +1,7 @@
 const sort_fn = ( a, b ) => {
-   return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+   return a.name.toLowerCase() > b.name.toLowerCase()
+         ? 1 
+         : a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 0;
 }
 
 export const getCurrentFilter = ( state ) => {
