@@ -1,4 +1,4 @@
-const API_TIEMOUT = 400;
+const API_TIMEOUT = 400;
 
 export const createFolderAPI = ( name, url ) => {
    return new Promise( ( success, failure ) => {
@@ -7,7 +7,7 @@ export const createFolderAPI = ( name, url ) => {
          console.warn( '>>> create folder API was successfully executed' );
          // Pass the folder id to the `success` callback
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -17,7 +17,7 @@ export const updateFolderAPI = ( id, name, url ) => {
       setTimeout( () => {
          console.warn( '>>> update folder API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -27,7 +27,7 @@ export const deleteFolderAPI = ( id ) => {
       setTimeout( () => {
          console.warn( '>>> delete folder API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -37,7 +37,7 @@ export const set404PageAPI = ( id ) => {
       setTimeout( () => {
          console.warn( '>>> set 404 page API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -47,7 +47,7 @@ export const unset404PageAPI = ( id ) => {
       setTimeout( () => {
          console.warn( '>>> unset 404 page API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -57,7 +57,7 @@ export const publishPageAPI = ( id ) => {
       setTimeout( () => {
          console.warn( '>>> publish page API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -67,7 +67,7 @@ export const setHomePageAPI = ( id ) => {
       setTimeout( () => {
          console.warn( '>>> set home page API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -77,7 +77,7 @@ export const deletePageAPI = ( id ) => {
       setTimeout( () => {
          console.warn( '>>> delete page API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -87,7 +87,7 @@ export const duplicatePageAPI = ( id ) => {
       setTimeout( () => {
          console.warn( '>>> duplicate page API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
 
@@ -97,6 +97,6 @@ export const movePageToFolderAPI = ( page_id, folder_id ) => {
       setTimeout( () => {
          console.warn( '>>> move page to folder API was successfully executed' );
          success();
-      }, API_TIEMOUT );
+      }, API_TIMEOUT );
    });
 };
