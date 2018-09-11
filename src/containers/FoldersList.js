@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getAllFolders } from '../selectors'
+import { getAllFoldersOrdered } from '../selectors'
 import FolderItem from '../components/FolderItem';
 
 const FoldersList = ( props ) => {
@@ -12,7 +12,7 @@ const FoldersList = ( props ) => {
 };
 
 const mapStateToProps = ( state, own_props ) => ({
-   data : getAllFolders( state.folders ),
+   data : getAllFoldersOrdered( state.folders ),
 });
 
 export default connect( mapStateToProps )( FoldersList );

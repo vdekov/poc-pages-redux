@@ -1,12 +1,20 @@
+const sort_fn = ( a, b ) => {
+   return a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
+}
+
 export const getCurrentFilter = ( state ) => {
    return state.filter;
 };
 
-export const getAllFolders = ( state ) => {
+const getAllFolders = ( state ) => {
    return state.order.map( folder_id => state.items[ folder_id ] );
 };
 
-export const getVisiblePagesByFolderId = ( state, folder_id ) => {
+export const getAllFoldersOrdered = ( state ) => {
+   return getAllFolders( state ).sort( sort_fn );
+};
+
+const getVisiblePagesByFolderId = ( state, folder_id ) => {
    const page_ids   = [];
    const page_items = [];
 
@@ -30,6 +38,10 @@ export const getVisiblePagesByFolderId = ( state, folder_id ) => {
    });
 
    return page_items;
+};
+
+export const getVisiblePagesByFolderIdOrdered = ( state, folder_id ) => {
+   return getVisiblePagesByFolderId( state, folder_id ).sort( sort_fn );
 };
 
 export const getHomePageId = ( state ) => {
