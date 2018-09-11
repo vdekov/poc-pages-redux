@@ -8,9 +8,9 @@ import {
 } from '../selectors';
 import {
    requestSetHomePage,
-   set404Page,
-   unset404Page,
-   publishPage,
+   requestSet404Page,
+   requestUnset404Page,
+   requestPublishPage,
    requestDeletePage,
    requestDeleteHomePage,
    requestDuplicatePage,
@@ -36,7 +36,7 @@ class PageItem extends React.Component {
 
       return (
          <div className={ this.getCSSClasses() } onClick={ this.onItemClick }>
-            <span className="sk-mp-pageslist-item-title">{ this.props.name } (id: { this.props.id })</span>
+            <span className="sk-mp-pageslist-item-title">{ this.props.name }</span>
             <Button className="sk-mp-pageslist-item-btn btn-delete" onClick={ this.deletePage }/>
             <Button className="sk-mp-pageslist-item-btn btn-edit"/>
             <Button className="sk-mp-pageslist-item-btn btn-home" onClick={ this.setHomePage }/>
@@ -71,12 +71,12 @@ class PageItem extends React.Component {
    }
 
    toggle404Page() {
-      const method = this.props.is_404_page ? unset404Page : set404Page;
+      const method = this.props.is_404_page ? requestUnset404Page : requestSet404Page;
       this.props.dispatch( method( this.props.id ) );
    }
 
    publishPage() {
-      this.props.dispatch( publishPage( this.props.id ) );
+      this.props.dispatch( requestPublishPage( this.props.id ) );
    }
 
    deletePage() {

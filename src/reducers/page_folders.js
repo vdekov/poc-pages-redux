@@ -28,7 +28,7 @@ const page_folders = ( state = {}, action ) => {
    case DUPLICATE_PAGE:
       return {
          ...state,
-         [ action.duplicated_page.id ] : state[ action.id ],
+         [ action.payload.id ] : state[ action.id ],
       }
    case MOVE_PAGE_TO_FOLDER:
       return {

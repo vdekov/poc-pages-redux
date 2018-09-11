@@ -5,7 +5,7 @@ class DraggableItem extends React.Component {
       super( props );
 
       this.onDragStart = this.onDragStart.bind( this );
-      this.onDragEnd = this.onDragEnd.bind( this );
+      this.onDragEnd   = this.onDragEnd.bind( this );
    }
 
    render() {

@@ -23,9 +23,10 @@ export default {
       123 : 1,
       124 : 1,
       125 : 0,
+      126 : 1,
    },
    pages : {
-      order : [ 123, 124, 125 ],
+      order : [ 123, 124, 125, 126 ],
       items : {
          123 : {
             id           : 123,
@@ -43,6 +44,12 @@ export default {
             id           : 125,
             name         : 'Contacts',
             url          : 'contacts',
+            is_published : false,
+         },
+         126 : {
+            id           : 126,
+            name         : 'FAQ',
+            url          : 'faq',
             is_published : false,
          },
       },
