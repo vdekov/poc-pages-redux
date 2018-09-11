@@ -12,6 +12,10 @@ const getAllFolders = ( state ) => {
    return state.order.map( folder_id => state.items[ folder_id ] );
 };
 
+export const isFolderEmpty = ( state, folder_id ) => {
+   return ! ~ Object.values( state ).indexOf( folder_id );
+};
+
 export const getAllFoldersOrdered = ( state ) => {
    return getAllFolders( state ).sort( sort_fn );
 };

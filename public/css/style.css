@@ -302,8 +302,14 @@
    flex: 1 1 100%;
    display: inline-block;
    padding-left: 28px;
-   background: url('/Images/sprite.svg') no-repeat 0 -339px;
+   background-image: url('/Images/sprite.svg');
+   background-repeat: no-repeat;
+   background-position: 0 -339px;
    font-size: 13px;
+}
+
+.sk-mp-folders-item-label.empty {
+   background-position: 0 -246px;
 }
 
 .collapsed .sk-mp-pageslist,

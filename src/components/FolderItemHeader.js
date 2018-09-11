@@ -5,6 +5,7 @@ import {
    requestDeleteFolder,
    requestUpdateFolder,
 } from '../actions';
+import { isFolderEmpty } from '../selectors';
 
 class FolderItemHeader extends React.Component {
    constructor( props ) {
@@ -18,13 +19,20 @@ class FolderItemHeader extends React.Component {
       return (
          <div className="sk-mp-folders-item-header" onClick={ this.props.onClick }>
             <span className="sk-mp-folders-item-arrow"></span>
-            <span className="sk-mp-folders-item-label">{ this.props.name }</span>
+            <span className={ this.getLabelCSSClasses() }>{ this.props.name }</span>
             <span className="sk-mp-folders-item-buttons">
                <Button className="sk-mp-folders-item-btn btn-delete" onClick={ this.deleteFolder }/>
                <Button className="sk-mp-folders-item-btn btn-edit" onClick={ this.editFolder }/>
             </span>
          </div>
       );
+   }
+
+   getLabelCSSClasses() {
+      return [
+         'sk-mp-folders-item-label',
+         ( this.props.is_empty ? ' empty' : '' ),
+      ].join( '' );
    }
 
    deleteFolder() {
@@ -45,4 +53,8 @@ class FolderItemHeader extends React.Component {
    }
 };
 
-export default connect()( FolderItemHeader );
+const mapStateToProps = ( state, own_props ) => ({
+   is_empty : isFolderEmpty( state.page_folders, own_props.id ),
+});
+
+export default connect( mapStateToProps )( FolderItemHeader );
