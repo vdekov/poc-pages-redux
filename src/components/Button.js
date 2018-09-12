@@ -9,6 +9,7 @@ const Button = ( props ) => {
       ( props.onClick || function () {} )();
    };
 
+   // TODO: Init the tooltips
    return (
       <span { ...props } onClick={ onClick }></span>
    );

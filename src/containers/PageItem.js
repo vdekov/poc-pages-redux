@@ -35,13 +35,40 @@ class PageItem extends React.Component {
       return (
          <div className={ this.getCSSClasses() } onClick={ this.onItemClick }>
             <span className="sk-mp-pageslist-item-title">{ this.props.name }</span>
-            <Button className="sk-mp-pageslist-item-btn btn-delete" onClick={ this.deletePage }/>
-            <Button className="sk-mp-pageslist-item-btn btn-edit"/>
-            <Button className="sk-mp-pageslist-item-btn btn-home" onClick={ this.setHomePage }/>
-            <Button className="sk-mp-pageslist-item-btn btn-duplicate sk-ui-advanced-option" onClick={ this.duplicatePage }/>
-            <Button className="sk-mp-pageslist-item-btn btn-move sk-ui-advanced-option" onClick={ this.movePageToFolder }/>
-            <Button className="sk-mp-pageslist-item-btn btn-404 sk-ui-advanced-option" onClick={ this.toggle404Page }/>
-            <Button className="sk-mp-pageslist-item-btn btn-publish sk-ui-advanced-option" onClick={ this.publishPage }/>
+            <Button
+               className="sk-mp-pageslist-item-btn btn-delete"
+               title="Allows you to delete this page from your site"
+               onClick={ this.deletePage }
+            />
+            <Button
+               className="sk-mp-pageslist-item-btn btn-edit"
+               title="Allows you to update/change your settings for this page"
+            />
+            <Button
+               className="sk-mp-pageslist-item-btn btn-home"
+               title="Allows you to make this the first page your visitors see when they first go to your site"
+               onClick={ this.setHomePage }
+            />
+            <Button
+               className="sk-mp-pageslist-item-btn btn-duplicate sk-ui-advanced-option"
+               title="Duplicate the page"
+               onClick={ this.duplicatePage }
+            />
+            <Button
+               className="sk-mp-pageslist-item-btn btn-move sk-ui-advanced-option"
+               title="Move page to a folder"
+               onClick={ this.movePageToFolder }
+            />
+            <Button
+               className="sk-mp-pageslist-item-btn btn-404 sk-ui-advanced-option"
+               title="Set as 404 page"
+               onClick={ this.toggle404Page }
+            />
+            <Button
+               className="sk-mp-pageslist-item-btn btn-publish sk-ui-advanced-option"
+               title="Publish the page"
+               onClick={ this.publishPage }
+            />
          </div>
       );
    }

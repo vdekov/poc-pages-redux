@@ -21,8 +21,16 @@ class FolderItemHeader extends React.Component {
             <span className="sk-mp-folders-item-arrow"></span>
             <span className={ this.getLabelCSSClasses() }>{ this.props.name }</span>
             <span className="sk-mp-folders-item-buttons">
-               <Button className="sk-mp-folders-item-btn btn-delete" onClick={ this.deleteFolder }/>
-               <Button className="sk-mp-folders-item-btn btn-edit" onClick={ this.editFolder }/>
+               <Button
+                  className="sk-mp-folders-item-btn btn-delete"
+                  title="Delete"
+                  onClick={ this.deleteFolder }
+               />
+               <Button
+                  className="sk-mp-folders-item-btn btn-edit"
+                  title="Edit"
+                  onClick={ this.editFolder }
+               />
             </span>
          </div>
       );
