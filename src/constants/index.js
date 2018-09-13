@@ -1,3 +1,6 @@
+// Action types
+export const RECEIVE_FOLDERS = 'RECEIVE_FOLDERS';
+export const RECEIVE_PAGES = 'RECEIVE_PAGES';
 export const CHANGE_FILTER = 'CHANGE_FILTER';
 export const CREATE_FOLDER = 'CREATE_FOLDER';
 export const UPDATE_FOLDER = 'UPDATE_FOLDER';
@@ -9,3 +12,6 @@ export const PUBLISH_PAGE = 'PUBLISH_PAGE';
 export const DELETE_PAGE = 'DELETE_PAGE';
 export const DUPLICATE_PAGE = 'DUPLICATE_PAGE';
 export const MOVE_PAGE_TO_FOLDER = 'MOVE_PAGE_TO_FOLDER';
+
+// TODO: Temporary value - change to 20.
+export const PAGES_BATCH_SIZE = 2;

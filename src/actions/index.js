@@ -1,5 +1,8 @@
 import * as constants from '../constants';
 import {
+   requestFoldersAPI,
+   requestPagesNodeIdsAPI,
+   requestPagesAPI,
    createFolderAPI,
    updateFolderAPI,
    deleteFolderAPI,
@@ -11,30 +14,55 @@ import {
    duplicatePageAPI,
    movePageToFolderAPI,
 } from '../api';
+import * as utils from '../utils';
 
-// TODO: Temporary functions - using just to generate a page ID.
-const getRandomArbitrary = ( min, max ) => {
-   return Math.round( Math.random() * ( max - min ) + min );
+// Initial action creators
+export const requestFolders = () => {
+   return ( dispatch ) => {
+      return requestFoldersAPI().then( data => {
+         return dispatch( receiveFolders( utils.getExtractedFoldersData( data ) ) );
+      });
+   };
 };
 
-const slugify = ( text ) => {
-   return text.toString().toLowerCase()
-         .replace( /\s+/g, '-' )           // Replace spaces with -
-         .replace( /[^\w-]+/g, '' )        // Remove all non-word chars
-         .replace( /--+/g, '-' )           // Replace multiple - with single -
-         .replace( /^-+/, '' )             // Trim - from start of text
-         .replace( /-+$/, '' );            // Trim - from end of text
+const receiveFolders = ( payload ) => ({
+   type : constants.RECEIVE_FOLDERS,
+   payload,
+});
+
+export const requestPages = () => {
+   return ( dispatch ) => {
+      return requestPagesNodeIdsAPI().then( page_node_ids => {
+         // Split the received page node_ids into 2 batches
+         // get the page data for the first 20 of them
+         // and then for the rest.
+         const node_ids      = [ ...page_node_ids ];
+         const rest_node_ids = node_ids.splice( constants.PAGES_BATCH_SIZE );
+
+         requestPagesAPI( node_ids ).then( data => {
+            dispatch( receivePages( utils.getExtractedPagesData( data ) ) );
+            rest_node_ids.length && requestPagesAPI( rest_node_ids ).then( data => {
+               dispatch( receivePages( utils.getExtractedPagesData( data ) ) );
+            });
+         });
+      });
+   };
 };
+
+const receivePages = ( payload ) => ({
+   type : constants.RECEIVE_PAGES,
+   payload,
+});
 
 // Folder action creators
 
 // CREATE FOLDER
 export const requestCreateFolder = ( name, url ) => {
    return ( dispatch ) => {
-      url = url || slugify( name );
+      url = url || utils.slugify( name );
       return createFolderAPI( name, url ).then( ( id ) => {
          return dispatch( createFolder(
-            getRandomArbitrary( 10, 100 ), // Use the ID from the API call
+            id || utils.getRandomArbitrary( 10, 100 ), // Use the ID from the API call
             name,
             url
          ));
@@ -54,7 +82,7 @@ const createFolder = ( id, name, url ) => ({
 // UPDATE FOLDER
 export const requestUpdateFolder = ( id, name, url ) => {
    return ( dispatch ) => {
-      url = url || slugify( name );
+      url = url || utils.slugify( name );
       updateFolderAPI( name, url );
       return dispatch( updateFolder(
          id,
@@ -166,7 +194,7 @@ export const requestDuplicatePage = ( id, name, url ) => {
          // TODO: In the real case `duplicated_page_id`, `name` and `url`
          // will be returned from the API call.
          const duplicated_page = {
-            id   : getRandomArbitrary( 150, 300 ),
+            id   : utils.getRandomArbitrary( 150, 300 ),
             url  : `${url}_1`,
             name : `Copy of ${name}`,
          };

@@ -30,7 +30,7 @@ const getVisiblePagesByFolderId = ( state, folder_id ) => {
          state.page_folders.hasOwnProperty( page_id )
          && state.page_folders[ page_id ] === folder_id
       ) {
-         page_ids.push( Number( page_id ) );
+         page_ids.push( page_id );
       }
    }
 
@@ -60,7 +60,7 @@ export const get404PageId = ( state ) => {
 
 export const getPageURL = ( state, page_id ) => {
    const folder_id = state.page_folders[ page_id ];
-   return `${state.folders.items[ folder_id ].url}/${state.pages.items[ page_id ].url}`;
+   return `${state.folders.items[ folder_id ].url}${state.pages.items[ page_id ].url}`;
 };
 
 export const getTotalPagesCount = ( state ) => {

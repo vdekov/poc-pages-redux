@@ -1,4 +1,5 @@
 import {
+   RECEIVE_PAGES,
    DELETE_FOLDER,
    DELETE_PAGE,
    DUPLICATE_PAGE,
@@ -9,6 +10,11 @@ const page_folders = ( state = {}, action ) => {
    let next_state;
 
    switch ( action.type ) {
+   case RECEIVE_PAGES:
+      return {
+         ...state,
+         ...action.payload.page_folders,
+      };
    case DELETE_FOLDER:
       next_state = { ...state };
 

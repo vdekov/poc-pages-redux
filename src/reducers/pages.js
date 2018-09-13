@@ -3,6 +3,8 @@ import * as constants from '../constants';
 
 const order = ( state = [], action ) => {
    switch ( action.type ) {
+   case constants.RECEIVE_PAGES:
+      return [ ...state, ...action.payload.pages.order ];
    case constants.DUPLICATE_PAGE:
       return [ ...state, action.payload.id ];
    case constants.DELETE_PAGE:
@@ -14,6 +16,11 @@ const order = ( state = [], action ) => {
 
 const items = ( state = {}, action ) => {
    switch ( action.type ) {
+   case constants.RECEIVE_PAGES:
+      return {
+         ...state,
+         ...action.payload.pages.items,
+      };
    case constants.PUBLISH_PAGE:
       return {
          ...state,

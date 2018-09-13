@@ -1,4 +1,44 @@
-const API_TIMEOUT = 400;
+import getFolders from './get_folders';
+import getPageNodeIds from './get_page_node_ids';
+import getPages from './get_pages';
+
+const API_TIMEOUT = 500;
+
+export const requestFoldersAPI = () => {
+   return new Promise( ( success, failure ) => {
+      setTimeout( () => {
+         console.warn( '>>> request folders API was successfully executed' );
+         const { data } = getFolders();
+         // Pass the folders data to the `success` callback
+         success( data );
+      }, API_TIMEOUT );
+   });
+};
+
+export const requestPagesNodeIdsAPI = () => {
+   return new Promise( ( success, failure ) => {
+      // TODO: Run `object.site.get_pages` API call
+      setTimeout( () => {
+         console.warn( '>>> request page node_ids API was successfully executed' );
+         const { data } = getPageNodeIds();
+         const page_node_ids = data.pages.links.map( page => page.node_id );
+         // Pass the page node_ids array to the `success` callback
+         success( page_node_ids );
+      }, API_TIMEOUT );
+   });
+}
+
+export const requestPagesAPI = ( node_ids ) => {
+   return new Promise( ( success, failure ) => {
+      // TODO: Run `object.page.get_multiple` API call passing the node_ids as a parameter
+      setTimeout( () => {
+         console.warn( '>>> request pages API was successfully executed' );
+         const { data } = getPages( node_ids );
+         // Pass the page node_ids array to the `success` callback
+         success( data );
+      }, API_TIMEOUT );
+   });
+};
 
 export const createFolderAPI = ( name, url ) => {
    return new Promise( ( success, failure ) => {
@@ -86,6 +126,7 @@ export const duplicatePageAPI = ( id ) => {
       // TODO: Run `object.page.duplicate` API call
       setTimeout( () => {
          console.warn( '>>> duplicate page API was successfully executed' );
+         // Pass the duplicated page data to the `success` callback
          success();
       }, API_TIMEOUT );
    });

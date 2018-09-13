@@ -29,7 +29,7 @@ class DraggableItem extends React.Component {
    }
 
    onDragEnd( event ) {
-      event.dataTransfer.clearData();
+      // event.dataTransfer.clearData();
    }
 }
 

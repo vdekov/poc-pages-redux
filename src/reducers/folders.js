@@ -1,12 +1,15 @@
 import { combineReducers } from 'redux';
 import {
+   RECEIVE_FOLDERS,
    CREATE_FOLDER,
    UPDATE_FOLDER,
    DELETE_FOLDER,
 } from '../constants';
 
-const order = ( state = [ 0 ], action ) => {
+const order = ( state = [ '0' ], action ) => {
    switch ( action.type ) {
+   case RECEIVE_FOLDERS:
+      return [ ...state, ...action.payload.order ];
    case CREATE_FOLDER:
       return [ ...state, action.payload.id ];
    case DELETE_FOLDER:
@@ -18,7 +21,7 @@ const order = ( state = [ 0 ], action ) => {
 
 const default_items_state = {
    0 : {
-      id       : 0,
+      id       : '0',
       name     : '',
       url      : '',
    }
@@ -26,6 +29,11 @@ const default_items_state = {
 
 const items = ( state = default_items_state, action ) => {
    switch ( action.type ) {
+   case RECEIVE_FOLDERS:
+      return {
+         ...state,
+         ...action.payload.items,
+      };
    case CREATE_FOLDER:
    case UPDATE_FOLDER:
       return {
