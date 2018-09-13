@@ -40,6 +40,19 @@ const receivePages = ( payload ) => ({
    payload,
 });
 
+export const requestRedirects = () => {
+   return dispatch => {
+      return api.requestRedirectsAPI().then( data => {
+         return dispatch( receiveRedirects( utils.getExtractedRedirectsData( data ) ) );
+      });
+   };
+};
+
+const receiveRedirects = ( payload ) => ({
+   type : constants.RECEIVE_REDIRECTS,
+   payload,
+});
+
 // Folder action creators
 
 // CREATE FOLDER
@@ -225,18 +238,17 @@ export const requestDeleteHomePage = ( next_homepage_id ) => {
    };
 };
 
-
 // Redirect action creators
 
-export const requestRedirects = () => {
-   return dispatch => {
-      return api.requestRedirectsAPI().then( data => {
-         return dispatch( receiveRedirects( utils.getExtractedRedirectsData( data ) ) );
-      });
-   };
+// DELETE REDIRECT
+export const requestDeleteRedirect = ( id ) => {
+   return ( dispatch ) => {
+      api.deleteRedirectAPI( id );
+      return dispatch( deleteRedirect( id ) );
+   }
 };
 
-const receiveRedirects = ( payload ) => ({
-   type : constants.RECEIVE_REDIRECTS,
-   payload,
+const deleteRedirect = ( id ) => ({
+   type : constants.DELETE_REDIRECT,
+   id,
 });

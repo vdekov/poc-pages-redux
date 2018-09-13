@@ -155,3 +155,13 @@ export const requestRedirectsAPI = () => {
       }, API_TIMEOUT );
    });
 };
+
+export const deleteRedirectAPI = id => {
+   return new Promise( ( success, failure ) => {
+      // TODO: Run `site.redirect.remove` API call
+      setTimeout( () => {
+         console.warn( '>>> delete redirect API was successfully executed' );
+         success();
+      }, API_TIMEOUT );
+   });
+};
