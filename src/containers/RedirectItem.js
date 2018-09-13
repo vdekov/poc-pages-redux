@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from '../components/Button';
-import { requestDeleteRedirect } from '../actions';
+import { requestDeleteRedirect, requestUpdateRedirect } from '../actions';
 
 class RedirectItem extends React.Component {
    constructor( props ) {
@@ -35,7 +35,14 @@ class RedirectItem extends React.Component {
    }
 
    editRedirect() {
-      console.log( '>>> edit redirect' );
+      const redirect_name = window.prompt( 'Type the new redirect name:', this.props.name );
+
+      if ( ! redirect_name || ! redirect_name.trim() || redirect_name === this.props.name ) {
+         return;
+      }
+
+      // TODO: Change the 3rd parameter to the new redirect path.
+      this.props.dispatch( requestUpdateRedirect( this.props.id, redirect_name, redirect_name, this.props.link ) );
    }
 }
 

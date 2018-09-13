@@ -165,3 +165,13 @@ export const deleteRedirectAPI = id => {
       }, API_TIMEOUT );
    });
 };
+
+export const updateRedirectAPI = ( id, name, path, link ) => {
+   return new Promise( ( success, failure ) => {
+      // TODO: Run `site.redirect.update` API call
+      setTimeout( () => {
+         console.warn( '>>> update redirect API was successfully executed' );
+         success();
+      }, API_TIMEOUT );
+   });
+};

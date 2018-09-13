@@ -82,7 +82,7 @@ const createFolder = ( id, name, url ) => ({
 export const requestUpdateFolder = ( id, name, url ) => {
    return ( dispatch ) => {
       url = url || utils.slugify( name );
-      api.updateFolderAPI( name, url );
+      api.updateFolderAPI( id, name, url );
       return dispatch( updateFolder(
          id,
          name,
@@ -251,4 +251,24 @@ export const requestDeleteRedirect = ( id ) => {
 const deleteRedirect = ( id ) => ({
    type : constants.DELETE_REDIRECT,
    id,
+});
+
+// UPDATE REDIRECT
+export const requestUpdateRedirect = ( id, name, path, link ) => {
+   return dispatch => {
+      // TODO: Don't use this approach in the real case.
+      path = utils.slugify( name );
+      api.updateRedirectAPI( id, name, path, link );
+      return dispatch( updateRedirect( id, name, path, link ) );
+   };
+};
+
+const updateRedirect = ( id, name, path, link ) => ({
+   type    : constants.UPDATE_REDIRECT,
+   payload : {
+      id,
+      name,
+      path,
+      link,
+   },
 });
