@@ -5,7 +5,6 @@ class DraggableItem extends React.Component {
       super( props );
 
       this.onDragStart = this.onDragStart.bind( this );
-      this.onDragEnd   = this.onDragEnd.bind( this );
    }
 
    render() {
@@ -26,10 +25,6 @@ class DraggableItem extends React.Component {
          parent_id : this.props.parent_id,
       };
       event.dataTransfer.setData( 'application/json', JSON.stringify( drag_data ) );
-   }
-
-   onDragEnd( event ) {
-      // event.dataTransfer.clearData();
    }
 }
 
