@@ -11,7 +11,7 @@ const order = ( state = [], action ) => {
    case RECEIVE_REDIRECTS:
       return [ ...state, ...action.payload.order ];
    case CREATE_REDIRECT:
-      return state;
+      return [ ...state, action.payload.id ];
    case DELETE_REDIRECT:
       return state.filter( item => item !== action.id );
    default:
@@ -26,12 +26,11 @@ const items = ( state = {}, action ) => {
          ...state,
          ...action.payload.items,
       };
-   case CREATE_REDIRECT:
-      return state;
    case DELETE_REDIRECT:
       const next_state = { ...state };
       delete next_state[ action.id ];
       return next_state;
+   case CREATE_REDIRECT:
    case UPDATE_REDIRECT:
       return {
          ...state,

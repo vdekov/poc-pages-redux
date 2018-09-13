@@ -333,3 +333,32 @@
 .sk-mp-folders-item-buttons {
    width: 55px;
 }
+
+
+
+.sk-mp-add-redirect-btn {
+   display: inline-block;
+   border-radius: 3px;
+   color: white;
+   border: 1px solid #0165c6;
+   background-color: #0071dd;
+   cursor: pointer;
+   height: 30px;
+   margin: 0 1px;
+}
+
+.sk-mp-add-redirect-btn:hover {
+   border-color: #1480ea;
+   background-color: #2a9afb;
+}
+
+.sk-mp-add-redirect-btn p.btn-caption {
+   background: url(//fl.sitekreator.com/Shared/Images/buttons.svg) no-repeat 2px -690px / 30px;
+   font-family: Lato, Helvetica, Arial, sans-serif;
+   font-size: 13px;
+   padding: 0px 15px 0px 30px;
+   margin: 0px;
+   border: 0px;
+   line-height: 31px;
+   white-space: nowrap;
+}

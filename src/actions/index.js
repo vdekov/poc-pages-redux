@@ -240,6 +240,33 @@ export const requestDeleteHomePage = ( next_homepage_id ) => {
 
 // Redirect action creators
 
+// CREATE REDIRECT
+export const requestCreateRedirect = ( name, path, link ) => {
+   return dispatch => {
+      path = path || utils.slugify( name );
+      link = link || null;
+
+      return api.createRedirectAPI().then( id => {
+         return dispatch( createRedirect(
+            id || utils.getRandomArbitrary( 10, 1000 ), // Use the ID from the API call
+            name,
+            path,
+            link
+         ));
+      });
+   };
+};
+
+const createRedirect = ( id, name, path, link ) => ({
+   type    : constants.CREATE_REDIRECT,
+   payload : {
+      id,
+      name,
+      path,
+      link,
+   },
+});
+
 // DELETE REDIRECT
 export const requestDeleteRedirect = ( id ) => {
    return ( dispatch ) => {

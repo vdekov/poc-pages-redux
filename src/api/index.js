@@ -156,6 +156,18 @@ export const requestRedirectsAPI = () => {
    });
 };
 
+export const createRedirectAPI = ( name, path, link ) => {
+   return new Promise( ( success, failure ) => {
+      // TODO: Run `site.redirect.add` API call
+      setTimeout( () => {
+         console.warn( '>>> create redirect API was successfully executed' );
+         // Pass the redirect id to the `success` callback
+         success();
+      }, API_TIMEOUT );
+   });
+};
+
+
 export const deleteRedirectAPI = id => {
    return new Promise( ( success, failure ) => {
       // TODO: Run `site.redirect.remove` API call
