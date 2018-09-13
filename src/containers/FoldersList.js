@@ -5,7 +5,7 @@ import FolderItem from '../components/FolderItem';
 
 const FoldersList = ( props ) => {
    return (
-      <div className="sk-mp-folderslist">
+      <div className="sk-mp-folders-list">
          { props.data.map( item => <FolderItem key={ item.id } { ...item }/>) }
       </div>
    );

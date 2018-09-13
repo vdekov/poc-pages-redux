@@ -1,8 +1,4 @@
-const sort_fn = ( a, b ) => {
-   return a.name.toLowerCase() > b.name.toLowerCase()
-         ? 1 
-         : a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 0;
-}
+import { sort_fn } from '../utils';
 
 export const getCurrentFilter = ( state ) => {
    return state.filter;
@@ -65,4 +61,12 @@ export const getPageURL = ( state, page_id ) => {
 
 export const getTotalPagesCount = ( state ) => {
    return state.length;
+};
+
+const getAllRedirects = ( state ) => {
+   return state.order.map( redirect_id => state.items[ redirect_id ] );
+};
+
+export const getAllRedirectsOrdered = ( state ) => {
+   return getAllRedirects( state ).sort( sort_fn );
 };

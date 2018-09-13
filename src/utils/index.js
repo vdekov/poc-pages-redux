@@ -12,6 +12,12 @@ export const slugify = ( text ) => {
          .replace( /-+$/, '' );            // Trim - from end of text
 };
 
+export const sort_fn = ( a, b ) => {
+   return a.name.toLowerCase() > b.name.toLowerCase()
+         ? 1 
+         : a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 0;
+};
+
 export const getExtractedFoldersData = ( data ) => {
    const payload = {
       order : [],
@@ -55,5 +61,22 @@ export const getExtractedPagesData = ( data ) => {
          payload.page_home_id = page.node_id;
       }
    });
+   return payload;
+};
+
+export const getExtractedRedirectsData = ( data ) => {
+   const payload = {
+      order : [],
+      items : {},
+   };
+
+   data.forEach( redirect => {
+      payload.order.push( redirect.redirect_id );
+      payload.items[ redirect.redirect_id ] = {
+         ...redirect.properties,
+         id : redirect.redirect_id,
+      };
+   });
+
    return payload;
 };

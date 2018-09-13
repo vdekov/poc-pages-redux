@@ -1,11 +1,13 @@
 import getFolders from './get_folders';
 import getPageNodeIds from './get_page_node_ids';
 import getPages from './get_pages';
+import getRedirects from './get_redirects'
 
 const API_TIMEOUT = 500;
 
 export const requestFoldersAPI = () => {
    return new Promise( ( success, failure ) => {
+      // Run `site.folder.get_all` API call
       setTimeout( () => {
          console.warn( '>>> request folders API was successfully executed' );
          const { data } = getFolders();
@@ -138,6 +140,18 @@ export const movePageToFolderAPI = ( page_id, folder_id ) => {
       setTimeout( () => {
          console.warn( '>>> move page to folder API was successfully executed' );
          success();
+      }, API_TIMEOUT );
+   });
+};
+
+export const requestRedirectsAPI = () => {
+   return new Promise( ( success, failure ) => {
+      // Run `site.redirect.get_all` API call
+      setTimeout( () => {
+         console.warn( '>>> request redirects API was successfully executed' );
+         const { data } = getRedirects();
+         // Pass the folders data to the `success` callback
+         success( data );
       }, API_TIMEOUT );
    });
 };

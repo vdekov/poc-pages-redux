@@ -1,25 +1,11 @@
 import * as constants from '../constants';
-import {
-   requestFoldersAPI,
-   requestPagesNodeIdsAPI,
-   requestPagesAPI,
-   createFolderAPI,
-   updateFolderAPI,
-   deleteFolderAPI,
-   set404PageAPI,
-   unset404PageAPI,
-   publishPageAPI,
-   setHomePageAPI,
-   deletePageAPI,
-   duplicatePageAPI,
-   movePageToFolderAPI,
-} from '../api';
+import * as api from '../api';
 import * as utils from '../utils';
 
 // Initial action creators
 export const requestFolders = () => {
    return ( dispatch ) => {
-      return requestFoldersAPI().then( data => {
+      return api.requestFoldersAPI().then( data => {
          return dispatch( receiveFolders( utils.getExtractedFoldersData( data ) ) );
       });
    };
@@ -32,16 +18,16 @@ const receiveFolders = ( payload ) => ({
 
 export const requestPages = () => {
    return ( dispatch ) => {
-      return requestPagesNodeIdsAPI().then( page_node_ids => {
+      return api.requestPagesNodeIdsAPI().then( page_node_ids => {
          // Split the received page node_ids into 2 batches
          // get the page data for the first 20 of them
          // and then for the rest.
          const node_ids      = [ ...page_node_ids ];
          const rest_node_ids = node_ids.splice( constants.PAGES_BATCH_SIZE );
 
-         requestPagesAPI( node_ids ).then( data => {
+         api.requestPagesAPI( node_ids ).then( data => {
             dispatch( receivePages( utils.getExtractedPagesData( data ) ) );
-            rest_node_ids.length && requestPagesAPI( rest_node_ids ).then( data => {
+            rest_node_ids.length && api.requestPagesAPI( rest_node_ids ).then( data => {
                dispatch( receivePages( utils.getExtractedPagesData( data ) ) );
             });
          });
@@ -60,7 +46,7 @@ const receivePages = ( payload ) => ({
 export const requestCreateFolder = ( name, url ) => {
    return ( dispatch ) => {
       url = url || utils.slugify( name );
-      return createFolderAPI( name, url ).then( ( id ) => {
+      return api.createFolderAPI( name, url ).then( ( id ) => {
          return dispatch( createFolder(
             id || utils.getRandomArbitrary( 10, 100 ), // Use the ID from the API call
             name,
@@ -83,7 +69,7 @@ const createFolder = ( id, name, url ) => ({
 export const requestUpdateFolder = ( id, name, url ) => {
    return ( dispatch ) => {
       url = url || utils.slugify( name );
-      updateFolderAPI( name, url );
+      api.updateFolderAPI( name, url );
       return dispatch( updateFolder(
          id,
          name,
@@ -104,7 +90,7 @@ const updateFolder = ( id, name, url ) => ({
 // DELETE FOLDER
 export const requestDeleteFolder = ( id ) => {
    return ( dispatch ) => {
-      deleteFolderAPI( id );
+      api.deleteFolderAPI( id );
       return dispatch( deleteFolder( id ) );
    }
 };
@@ -125,7 +111,7 @@ export const changeFilter = ( filter ) => ({
 // SET HOME PAGE
 export const requestSetHomePage = id => {
    return dispatch => {
-      setHomePageAPI( id );
+      api.setHomePageAPI( id );
       return dispatch( setHomePage( id ) );
    };
 };
@@ -138,7 +124,7 @@ const setHomePage = id => ({
 // SET 404 PAGE
 export const requestSet404Page = ( id ) => {
    return ( dispatch ) => {
-      set404PageAPI( id );
+      api.set404PageAPI( id );
       return dispatch( set404Page( id ) );
    };
 };
@@ -151,7 +137,7 @@ const set404Page = ( id ) => ({
 // UNSET 404 PAGE
 export const requestUnset404Page = ( id ) => {
    return ( dispatch ) => {
-      unset404PageAPI( id );
+      api.unset404PageAPI( id );
       return dispatch( unset404Page( id ) );
    };
 };
@@ -164,7 +150,7 @@ const unset404Page = ( id ) => ({
 // PUBLISH PAGE
 export const requestPublishPage = ( id ) => {
    return ( dispatch ) => {
-      publishPageAPI( id );
+      api.publishPageAPI( id );
       return dispatch( publishPage( id ) );
    };
 };
@@ -177,7 +163,7 @@ const publishPage = ( id ) => ({
 // DELETE PAGE
 export const requestDeletePage = ( id ) => {
    return ( dispatch ) => {
-      deletePageAPI( id );
+      api.deletePageAPI( id );
       return dispatch( deletePage( id ) );
    };
 };
@@ -190,7 +176,7 @@ const deletePage = ( id ) => ({
 // DUPLICATE PAGE
 export const requestDuplicatePage = ( id, name, url ) => {
    return ( dispatch ) => {
-      return duplicatePageAPI( id ).then( () => {
+      return api.duplicatePageAPI( id ).then( () => {
          // TODO: In the real case `duplicated_page_id`, `name` and `url`
          // will be returned from the API call.
          const duplicated_page = {
@@ -212,7 +198,7 @@ const duplicatePage = ( id, payload ) => ({
 // MOVE PAGE TO FOLDER
 export const requestMovePageToFolder = ( page_id, folder_id ) => {
    return ( dispatch ) => {
-      movePageToFolderAPI( page_id, folder_id );
+      api.movePageToFolderAPI( page_id, folder_id );
       return dispatch( movePageToFolder( page_id, folder_id ) );
    };
 };
@@ -233,8 +219,24 @@ export const requestDeleteHomePage = ( next_homepage_id ) => {
       dispatch( deletePage( homepage_id ) );
 
       // Run both APIs synchronously
-      setHomePageAPI( next_homepage_id ).then( () => {
-         deletePageAPI( homepage_id );
+      api.setHomePageAPI( next_homepage_id ).then( () => {
+         api.deletePageAPI( homepage_id );
       });
    };
 };
+
+
+// Redirect action creators
+
+export const requestRedirects = () => {
+   return dispatch => {
+      return api.requestRedirectsAPI().then( data => {
+         return dispatch( receiveRedirects( utils.getExtractedRedirectsData( data ) ) );
+      });
+   };
+};
+
+const receiveRedirects = ( payload ) => ({
+   type : constants.RECEIVE_REDIRECTS,
+   payload,
+});

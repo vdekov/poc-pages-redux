@@ -1,5 +1,5 @@
 import React from 'react';
-import FolderItemHeader from './FolderItemHeader';
+import FolderItemHeader from '../containers/FolderItemHeader';
 import DroppableArea from '../containers/DroppableArea';
 import PagesList from '../containers/PagesList';
 

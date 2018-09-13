@@ -13,5 +13,10 @@ export const DELETE_PAGE = 'DELETE_PAGE';
 export const DUPLICATE_PAGE = 'DUPLICATE_PAGE';
 export const MOVE_PAGE_TO_FOLDER = 'MOVE_PAGE_TO_FOLDER';
 
+export const RECEIVE_REDIRECTS = 'RECEIVE_REDIRECTS';
+export const CREATE_REDIRECT = 'CREATE_REDIRECT';
+export const UPDATE_REDIRECT = 'UPDATE_REDIRECT';
+export const DELETE_REDIRECT = 'DELETE_REDIRECT';
+
 // TODO: Temporary value - change to 20.
 export const PAGES_BATCH_SIZE = 2;

@@ -142,7 +142,7 @@
 }
 
 #sk-mp-folders > .sk-mp-folders-item,
-#sk-mp-redirects > .sk-mp-redirects-item {
+.sk-mp-redirects-list > .sk-mp-redirects-item {
    font-family: Lato, Helvetica, Arial, sans-serif;
    font-size: 13px;
    line-height: 18px;
@@ -250,7 +250,8 @@
    background: url('//fl.sitekreator.com/Shared/Images/buttons.svg') no-repeat center -874px;
 }
 
-.sk-mp-folderslist {
+.sk-mp-folders-list,
+.sk-mp-redirects-list {
    margin: 0 10px;
 }
 

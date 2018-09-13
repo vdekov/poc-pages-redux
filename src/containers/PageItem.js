@@ -121,7 +121,7 @@ class PageItem extends React.Component {
             if ( ! next_homepage_id ) {
                return;
             }
-            this.props.dispatch( requestDeleteHomePage( parseInt( next_homepage_id, 10 ) ) );
+            this.props.dispatch( requestDeleteHomePage( next_homepage_id ) );
             return;
          }
 
@@ -141,7 +141,7 @@ class PageItem extends React.Component {
          return;
       }
 
-      this.props.dispatch( requestMovePageToFolder( this.props.id, parseInt( folder_id, 10 ) ) )
+      this.props.dispatch( requestMovePageToFolder( this.props.id, folder_id ) );
    }
 };
 

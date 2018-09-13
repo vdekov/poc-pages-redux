@@ -5,6 +5,7 @@ import page_folders from './page_folders';
 import page_home_id from './page_home_id';
 import page_404_id from './page_404_id';
 import filter from './filter';
+import redirects from './redirects';
 
 const root = combineReducers({
    folders,
@@ -13,6 +14,7 @@ const root = combineReducers({
    page_home_id,
    page_404_id,
    filter,
+   redirects,
 });
 
 export default root;

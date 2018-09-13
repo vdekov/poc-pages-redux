@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import SearchBox from './SearchBox';
 import FoldersList from './FoldersList';
-import { requestFolders, requestPages } from '../actions';
+import RedirectsList from './RedirectsList';
+import { requestFolders, requestPages, requestRedirects } from '../actions';
 
 class App extends React.Component {
    render() {
@@ -12,6 +13,8 @@ class App extends React.Component {
             <Header/>
             <SearchBox placeholder="Search..."/>
             <FoldersList/>
+            {/* TODO: Wrap into collapsible section */}
+            <RedirectsList/>
          </div>
       );
    }
@@ -19,6 +22,7 @@ class App extends React.Component {
    componentDidMount() {
       this.props.dispatch( requestFolders() );
       this.props.dispatch( requestPages() );
+      this.props.dispatch( requestRedirects() );
    }
 };
 
