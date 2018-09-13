@@ -17,8 +17,8 @@ class FolderItem extends React.Component {
    render() {
       return (
          <div className={ this.getCSSClasses() }>
-            { !! this.props.name && <FolderItemHeader { ...this.props } onClick={ this.togglePagesList }/> }
             <DroppableArea id={ this.props.id }>
+               { !! this.props.name && <FolderItemHeader { ...this.props } onClick={ this.togglePagesList }/> }
                <PagesList folder_id={ this.props.id }/>
             </DroppableArea>
          </div>
