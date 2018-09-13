@@ -87,7 +87,7 @@ export const requestUpdateFolder = ( id, name, url ) => {
       return dispatch( updateFolder(
          id,
          name,
-         url
+         `/${url}/`      // TODO: Handle properly the URL from the API call
       ));
    }
 };
