@@ -23,7 +23,7 @@ const page_folders = ( state = {}, action ) => {
          if ( next_state.hasOwnProperty( page_id )
             && next_state[ page_id ] === action.id
          ) {
-            next_state[ page_id ] = 0;
+            next_state[ page_id ] = '0';
          }
       }
       return next_state;

@@ -1,11 +1,11 @@
 import * as constants from '../constants';
-import * as api from '../api';
+import api from '../api';
 import * as utils from '../utils';
 
 // Initial action creators
 export const requestFolders = () => {
    return ( dispatch ) => {
-      return api.requestFoldersAPI().then( data => {
+      return api.folders.request().then( data => {
          return dispatch( receiveFolders( utils.getExtractedFoldersData( data ) ) );
       });
    };
@@ -18,16 +18,16 @@ const receiveFolders = ( payload ) => ({
 
 export const requestPages = () => {
    return ( dispatch ) => {
-      return api.requestPagesNodeIdsAPI().then( page_node_ids => {
+      return api.pages.requestNodeIds().then( page_node_ids => {
          // Split the received page node_ids into 2 batches
          // get the page data for the first 20 of them
          // and then for the rest.
          const node_ids      = [ ...page_node_ids ];
          const rest_node_ids = node_ids.splice( constants.PAGES_BATCH_SIZE );
 
-         api.requestPagesAPI( node_ids ).then( data => {
+         api.pages.request( node_ids ).then( data => {
             dispatch( receivePages( utils.getExtractedPagesData( data ) ) );
-            rest_node_ids.length && api.requestPagesAPI( rest_node_ids ).then( data => {
+            rest_node_ids.length && api.pages.request( rest_node_ids ).then( data => {
                dispatch( receivePages( utils.getExtractedPagesData( data ) ) );
             });
          });
@@ -42,7 +42,7 @@ const receivePages = ( payload ) => ({
 
 export const requestRedirects = () => {
    return dispatch => {
-      return api.requestRedirectsAPI().then( data => {
+      return api.redirects.request().then( data => {
          return dispatch( receiveRedirects( utils.getExtractedRedirectsData( data ) ) );
       });
    };
@@ -59,7 +59,7 @@ const receiveRedirects = ( payload ) => ({
 export const requestCreateFolder = ( name, url ) => {
    return ( dispatch ) => {
       url = url || utils.slugify( name );
-      return api.createFolderAPI( name, url ).then( ( id ) => {
+      return api.folders.create( name, url ).then( ( id ) => {
          return dispatch( createFolder(
             id || utils.getRandomArbitrary( 10, 100 ), // Use the ID from the API call
             name,
@@ -82,7 +82,7 @@ const createFolder = ( id, name, url ) => ({
 export const requestUpdateFolder = ( id, name, url ) => {
    return ( dispatch ) => {
       url = url || utils.slugify( name );
-      api.updateFolderAPI( id, name, url );
+      api.folders.update( id, name, url );
       return dispatch( updateFolder(
          id,
          name,
@@ -103,7 +103,7 @@ const updateFolder = ( id, name, url ) => ({
 // DELETE FOLDER
 export const requestDeleteFolder = ( id ) => {
    return ( dispatch ) => {
-      api.deleteFolderAPI( id );
+      api.folders.remove( id );
       return dispatch( deleteFolder( id ) );
    }
 };
@@ -124,7 +124,7 @@ export const changeFilter = ( filter ) => ({
 // SET HOME PAGE
 export const requestSetHomePage = id => {
    return dispatch => {
-      api.setHomePageAPI( id );
+      api.pages.setHomePage( id );
       return dispatch( setHomePage( id ) );
    };
 };
@@ -137,7 +137,7 @@ const setHomePage = id => ({
 // SET 404 PAGE
 export const requestSet404Page = ( id ) => {
    return ( dispatch ) => {
-      api.set404PageAPI( id );
+      api.pages.set404Page( id );
       return dispatch( set404Page( id ) );
    };
 };
@@ -150,7 +150,7 @@ const set404Page = ( id ) => ({
 // UNSET 404 PAGE
 export const requestUnset404Page = ( id ) => {
    return ( dispatch ) => {
-      api.unset404PageAPI( id );
+      api.pages.unset404Page( id );
       return dispatch( unset404Page( id ) );
    };
 };
@@ -163,7 +163,7 @@ const unset404Page = ( id ) => ({
 // PUBLISH PAGE
 export const requestPublishPage = ( id ) => {
    return ( dispatch ) => {
-      api.publishPageAPI( id );
+      api.pages.publishPage( id );
       return dispatch( publishPage( id ) );
    };
 };
@@ -176,7 +176,7 @@ const publishPage = ( id ) => ({
 // DELETE PAGE
 export const requestDeletePage = ( id ) => {
    return ( dispatch ) => {
-      api.deletePageAPI( id );
+      api.pages.remove( id );
       return dispatch( deletePage( id ) );
    };
 };
@@ -189,7 +189,7 @@ const deletePage = ( id ) => ({
 // DUPLICATE PAGE
 export const requestDuplicatePage = ( id, name, url ) => {
    return ( dispatch ) => {
-      return api.duplicatePageAPI( id ).then( () => {
+      return api.pages.duplicate( id ).then( () => {
          // TODO: In the real case `duplicated_page_id`, `name` and `url`
          // will be returned from the API call.
          const duplicated_page = {
@@ -211,7 +211,7 @@ const duplicatePage = ( id, payload ) => ({
 // MOVE PAGE TO FOLDER
 export const requestMovePageToFolder = ( page_id, folder_id ) => {
    return ( dispatch ) => {
-      api.movePageToFolderAPI( page_id, folder_id );
+      api.pages.moveToFolder( page_id, folder_id );
       return dispatch( movePageToFolder( page_id, folder_id ) );
    };
 };
@@ -232,8 +232,8 @@ export const requestDeleteHomePage = ( next_homepage_id ) => {
       dispatch( deletePage( homepage_id ) );
 
       // Run both APIs synchronously
-      api.setHomePageAPI( next_homepage_id ).then( () => {
-         api.deletePageAPI( homepage_id );
+      api.pages.setHomePage( next_homepage_id ).then( () => {
+         api.pages.remove( homepage_id );
       });
    };
 };
@@ -246,7 +246,7 @@ export const requestCreateRedirect = ( name, path, link ) => {
       path = path || utils.slugify( name );
       link = link || null;
 
-      return api.createRedirectAPI().then( id => {
+      return api.redirects.create().then( id => {
          return dispatch( createRedirect(
             id || utils.getRandomArbitrary( 10, 1000 ), // Use the ID from the API call
             name,
@@ -270,7 +270,7 @@ const createRedirect = ( id, name, path, link ) => ({
 // DELETE REDIRECT
 export const requestDeleteRedirect = ( id ) => {
    return ( dispatch ) => {
-      api.deleteRedirectAPI( id );
+      api.redirects.remove( id );
       return dispatch( deleteRedirect( id ) );
    }
 };
@@ -285,7 +285,7 @@ export const requestUpdateRedirect = ( id, name, path, link ) => {
    return dispatch => {
       // TODO: Don't use this approach in the real case.
       path = utils.slugify( name );
-      api.updateRedirectAPI( id, name, path, link );
+      api.redirects.update( id, name, path, link );
       return dispatch( updateRedirect( id, name, path, link ) );
    };
 };

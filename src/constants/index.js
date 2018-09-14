@@ -20,3 +20,4 @@ export const DELETE_REDIRECT = 'DELETE_REDIRECT';
 
 // TODO: Temporary value - change to 20.
 export const PAGES_BATCH_SIZE = 2;
+export const API_TIMEOUT = 500;
