@@ -148,16 +148,15 @@ const set404Page = ( id ) => ({
 });
 
 // UNSET 404 PAGE
-export const requestUnset404Page = ( id ) => {
-   return ( dispatch ) => {
-      api.pages.unset404Page( id );
-      return dispatch( unset404Page( id ) );
+export const requestUnset404Page = () => {
+   return dispatch => {
+      api.pages.unset404Page();
+      return dispatch( unset404Page() );
    };
 };
 
-const unset404Page = ( id ) => ({
+const unset404Page = () => ({
    type : constants.UNSET_404_PAGE,
-   id,
 });
 
 // PUBLISH PAGE

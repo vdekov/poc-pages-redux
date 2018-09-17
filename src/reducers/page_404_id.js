@@ -12,6 +12,7 @@ const page_404_id = ( state = null, action ) => {
    case SET_404_PAGE:
       return action.id;
    case UNSET_404_PAGE:
+      return null;
    case DELETE_PAGE:
       if ( state === action.id ) {
          return null;
